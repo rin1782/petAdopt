@@ -1,8 +1,25 @@
-<form action="action.js" method="post" onsubmit="alert('Form data will be submitted to the server!');">
-    <label>First Name:</label>
-    <input type="text" name="first-name" required>
-    <input type="submit" value="Submit">
-</form>
+
 
 GITHUB REPO NAME for BACKend - /petAdopt
 GITHUB REPO NAME for FRONTEND - /JSProjectFE
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const endPoint = "http://localhost:3000/pets";
+  fetch(endPoint)
+  .then(res => res.json())
+  .then(json => 
+      json.pets.forEach(pet => {
+          const markup = `
+          <li>
+              <h2>${pet.name}</h2>
+              <img src="${pet.img_url}" height="300" width=350">
+              <p>${pet.about}</p>
+              <button>Update</button>
+              <button>Delete</button
+          </li>`;
+
+          document.querySelector("#pet_list").innerHTML += markup;
+    })
+  )
+})
