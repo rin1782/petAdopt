@@ -1,0 +1,171 @@
+const endPoint = "http://localhost:3000/pets"
+
+const fosters = [];
+
+function getFosters(){
+    fetch(endPoint);
+    console.log(endPoint);
+}
+
+function container() {
+    return document.getElementById("container");
+}
+
+function nameInput(){
+    return document.querySelector("#name");
+}
+
+function aboutInput(){
+    return document.querySelector("#about_pet");
+}
+
+function form() {
+    return document.getElementById("form");
+  }
+
+// function formLink() {
+//     return document.getElementById("form-link");
+// }
+  
+// function fostersLink() {
+//     return document.getElementById("fosters-link");
+// }
+
+function resetInputs(){
+    nameInput().value = "";
+    aboutInput().value = "";
+}
+
+function resetContainer() {
+    container().innerHTML = "";
+}
+
+function formTemplate() {
+    return `
+    <form id="form">
+        <h3>Add a new Foster</h3>
+            <div class="inputs">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name"/>
+            </div>
+            <div class="inputs">
+                <label for="description">Description</label><br>
+                <textarea name="about_pet" id="about_pet" cols="15" rows="5"></textarea>
+            </div>
+            <button type="submit" form="form" value="Submit">Submit</button>
+        </form>
+    `;
+}
+
+function fosterList(){
+    return `
+    <h3>Available Pets</h3>
+    <div id="fosters">
+        <div>
+        <h4>${fosters}</h4>
+        <p>Description</p>
+        </div>
+    </div>
+    `;
+}
+
+// function renderFoster(foster){
+//   let div = document.createElement("div");
+//   let h4 = document.createElement("h4");
+//   let p = document.createElement("p");
+//   let fostersDiv = document.getElementById('fosters');
+
+//   h4.innerText = foster.name;
+//   p.innerText = foster.description;
+
+//   div.appendChild(h4);
+//   div.appendChild(p);
+
+//   fostersDiv.appendChild(div);
+// }
+
+function renderFosters() {
+    resetContainer();
+    container().innerHTML = renderFoster();
+  
+    fosters.forEach(function(foster) {
+        return foster.nameInput;
+    });
+}
+
+function renderForm(){
+    resetContainer();
+    container().innerHTML = formTemplate();
+    form().addEventListener("submit", submitForm);
+}
+
+function submitForm(e){
+    e.preventDefault();
+    fosters.push({
+        name: nameInput().value,
+        description: aboutInput().value,
+    });
+}
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    getFosters();
+    renderForm();
+
+});
+
+.then(response => response.json
+        .then((data => { console.log(data)
+                    }))
+                // data.pets.forEach(pet => {
+                //     newFunction(pet)
+                // })
+
+// function newFunction(pet) {
+//     const petInfo = `
+//         <div data-id=${pet.user_id} class="all_info">
+//             <ul>
+//                 <h1 class="name_pet">${pet.name}</h1>
+//                 <img src="${pet.img_url}" height="300" width=350" class="petPic">
+//                 <h4 class="about_pet">${pet.about}</h4>
+//             </ul>
+//             <button class="delete-btn" data-id=${pet.id} onclick="deletePet(event)">I've been adopted! DELETE</button>
+//         </div>`
+
+//             document.querySelector(".pets_container").innerHTML += petInfo
+//         }
+//     }
+
+    // function createFormHandler(e) {
+    //      e.preventDefault()
+    //     const petNameInput = document.querySelector(".input-name").value
+    //     const petAboutInput = document.querySelector(".input-about").value
+    //     const petImageInput = document.querySelector(".input-text").value
+    //     const userID = parseInt(document.querySelector("#users").value)
+    //     postFetch(petNameInput, petAboutInput, petImageInput, userID)
+    //     fostAdded();
+    // }
+
+    // function postFetch(name, about, img_url, user_id) {
+    //     const bodyData = {name, about, img_url, user_id}
+    //     fetch(endPoint, {
+    //         method: "POST",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify(bodyData)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => { console.log(data);
+    //         renderPet()
+    //     })
+    // }
+
+    // function deletePet(event) {
+    //     let petId = parseInt(event.target.dataset.id)
+    //     fetch(`http://localhost:3000/pets/${petId}`, {
+    //     method: "DELETE"
+    //     })
+    //     fostDeleted();
+        
