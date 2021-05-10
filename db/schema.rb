@@ -17,17 +17,16 @@ ActiveRecord::Schema.define(version: 2021_03_27_004834) do
 
   create_table "pets", force: :cascade do |t|
     t.string "name"
-    t.string "img_url"
     t.string "about"
-    t.bigint "user_id"
+    t.string "img_url"
+    t.integer "inquiries", default: 0
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

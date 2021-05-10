@@ -1,51 +1,43 @@
 class PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :update, :destroy]
-
-  # GET /pets
+  
   def index
-    @pets = Pet.all
+    pet = Pet.all
 
-    render json: @pets
+    render json: Pet.arr_to_json
   end
 
   # GET /pets/1
   def show
-    render json: @pet
+    pet = Pet.find(params[:id])
+    render json: pet.instance_to_json
   end
 
   # POST /pets
   def create
-    @pet = Pet.new(pet_params)
-
-    if @pet.save
-      render json: @pet, status: :created, location: @pet
-    else
-      render json: @pet.errors, status: :unprocessable_entity
+    pet = Pet.new(pet_params)
+    user = User.find_or_create_by(name: params[:user])
+    pet.user_id =  user.id
+    if pet.save
+        render json: pet.instance_to_json
+    else 
+        render json: pet.errors, status: :unprocessable_entity
     end
-  end
+end 
 
-  # PATCH/PUT /pets/1
-  def update
-    if @pet.update(pet_params)
-      render json: @pet
-    else
-      render json: @pet.errors, status: :unprocessable_entity
-    end
+def update
+  pet = Pet.find_by(id: params[:id])
+  pet.update(inquiries: params[:inquiries])
+  if pet.save
+      render json: pet.instance_to_json
+  else 
+      render json: pet.errors, status: :unprocessable_entity
   end
-
-  # DELETE /pets/1
-  def destroy
-    @pet.destroy
-  end
+end 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pet
-      @pet = Pet.find(params[:id])
-    end
 
     # Only allow a list of trusted parameters through.
     def pet_params
-      params.require(:pet).permit(:id, :name, :img_url, :about, :user_id)
+      params.require(:pet).permit(:id, :name, :img_url, :about, :inquiries, :user_id)
     end
 end

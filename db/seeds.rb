@@ -1,4 +1,4 @@
-erin = User.create(name: "Erin", email: "erin@mail.com")
+erin = User.create(name: "Erin")
 
 
 pets = Pet.create([
