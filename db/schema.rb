@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2021_03_27_004834) do
     t.string "name"
     t.string "about"
     t.string "img_url"
-    t.integer "inquiries", default: 0
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

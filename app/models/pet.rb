@@ -15,7 +15,6 @@ class Pet < ApplicationRecord
             name: self.name,
             about: self.about,
             img_url: self.img_url,
-            inquiries: self.inquiries,
             user: {
                 id: self.user.id,
                 name: self.user.name

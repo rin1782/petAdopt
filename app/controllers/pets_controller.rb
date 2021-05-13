@@ -26,7 +26,7 @@ end
 
 def update
   pet = Pet.find_by(id: params[:id])
-  pet.update(inquiries: params[:inquiries])
+  pet.update(inquiries: params[:about])
   if pet.save
       render json: pet.instance_to_json
   else 
@@ -38,6 +38,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def pet_params
-      params.require(:pet).permit(:id, :name, :img_url, :about, :inquiries, :user_id)
+      params.require(:pet).permit(:id, :name, :img_url, :about, :user_id)
     end
 end
